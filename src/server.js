@@ -2,11 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 
 dotenv.config();
 
 const todoRouter = require('./routes/todo');
-const db = require('./db');
+
+mongoose.connect('mongodb://localhost:27017/todoApp', { useNewUrlParser: true });
+// const db = require('./db');
 
 const app = express();
 
@@ -32,13 +35,11 @@ app.use('/api/*', (_, res) => {
   res.status(404).send();
 });
 
-db.connect(err => {
-  if (err) {
-    console.log('unable to connect to database');
-    process.exit(1);
-  } else {
-    app.listen(port, () => {
-      console.log(`Listening on port ${port}`);
-    });
-  }
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+  });
 });
