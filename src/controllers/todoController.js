@@ -22,6 +22,42 @@ exports.todList = async function(_, res) {
   }
 };
 
+exports.getTodo = async function(req, res) {
+  try {
+    const todo = await db
+      .getDB()
+      .collection(collection)
+      .findOne({ _id: db.getPrimaryKey(req.params.id) });
+    return res.status(200).json({ result: todo, status: 'OK' });
+  } catch (err) {
+    return res.status(404).send(handleError(err));
+  }
+};
+
+exports.updateTodo = async function(req, res) {
+  try {
+    const todo = await db
+      .getDB()
+      .collection(collection)
+      .updateOne({ _id: db.getPrimaryKey(req.params.id) }, { $set: req.body });
+    return res.status(200).json({ result: todo, status: 'OK' });
+  } catch (err) {
+    return res.status(404).send(handleError(err));
+  }
+};
+
+exports.deleteTodo = async function(req, res) {
+  try {
+    const todo = await db
+      .getDB()
+      .collection(collection)
+      .deleteOne({ _id: db.getPrimaryKey(req.params.id) });
+    return res.status(200).json({ result: todo, status: 'OK' });
+  } catch (err) {
+    return res.status(404).send(handleError(err));
+  }
+};
+
 exports.addTodo = async function(req, res) {
   try {
     const todo = await db

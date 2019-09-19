@@ -1,6 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const todoRouter = require('./routes/todo');
 const db = require('./db');
 

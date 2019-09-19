@@ -1,10 +1,6 @@
 const { MongoClient } = require('mongodb');
 const { ObjectID } = require('mongodb');
 
-const dbname = 'todoApp';
-
-const url = 'mongodb://localhost:27017';
-
 const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const state = {
@@ -14,13 +10,13 @@ const state = {
 const connect = cb => {
   if (state.db) cb();
   else {
-    MongoClient.connect(url, mongoOptions, (err, client) => {
+    MongoClient.connect(process.env.API_URL, mongoOptions, (err, client) => {
       // unable to get database connection pass error to CB
       if (err) cb(err);
       // Successfully got our database connection
       // Set database connection and call CB
       else {
-        state.db = client.db(dbname);
+        state.db = client.db(process.env.DB_NAME);
         cb();
       }
     });
