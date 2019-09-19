@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const todoRouter = require('./routes/todo');
+const db = require('./db');
 
 const app = express();
 
@@ -27,6 +28,13 @@ app.use('/api/*', (_, res) => {
   res.status(404).send();
 });
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+db.connect(err => {
+  if (err) {
+    console.log('unable to connect to database');
+    process.exit(1);
+  } else {
+    app.listen(port, () => {
+      console.log(`Listening on port ${port}`);
+    });
+  }
 });
