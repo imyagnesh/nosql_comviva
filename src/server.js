@@ -79,7 +79,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
   // we're connected!
-  app.listen(port, () => {
+  app.listen(process.env.PORT, () => {
     console.log(`Listening on port ${port}`);
   });
 });
