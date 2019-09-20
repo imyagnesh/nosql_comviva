@@ -50,7 +50,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const port = process.env.port || '0.0.0.0';
+const port = process.env.port || '80';
 
 // Routes Related Code
 // app.use('/api/todo', todoRouter);
