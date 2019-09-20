@@ -50,7 +50,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const port = process.env.port || '443';
+const port = process.env.port || '3004';
 
 // Routes Related Code
 // app.use('/api/todo', todoRouter);
@@ -79,7 +79,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
   // we're connected!
-  app.listen(process.env.PORT, () => {
+  app.listen(port, () => {
     console.log(`Listening on port ${port}`);
   });
 });
