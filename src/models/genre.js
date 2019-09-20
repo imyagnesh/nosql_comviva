@@ -6,8 +6,7 @@ const GenreSchema = new Schema({
   name: {
     type: String,
     required: true,
-    enum: ['Available', 'Maintenance', 'Loaned', 'Reserved'],
-    default: 'Maintenance',
+    enum: ['Romantic', 'Action', 'Thriller', 'Fiction'],
   },
 });
 
